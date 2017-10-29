@@ -20,6 +20,7 @@
     "body-parser": "^1.18.2",
     "express": "^4.16.2",
     "hbs": "^4.0.1",
+    "mongoose": "^4.12.4",
     "node-uuid": "^1.4.8",
     "uuid": "^3.1.0"
   }

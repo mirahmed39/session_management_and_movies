@@ -1,0 +1,14 @@
+/* index.hbs style */
+.home-header {
+    text-align: center;
+}
+
+/* movies.hbs style */
+.movie-form {
+    text-align: center;
+}
+
+/* addMovie.hbs style */
+.add-movie-form {
+    text-align: center;
+}

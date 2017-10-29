@@ -1,0 +1,26 @@
+<div class="form-group movie-form">
+    <form class="general-form-style" method="GET" action="">
+        <label for="director">Director:</label>
+        <input type="text" id="director" name="director">
+        <input type="submit" class="btn btn-danger" value="filter">
+    </form>
+</div>
+
+<table class="table table-striped table-bordered table-hover">
+    <thead class="thead-inverse">
+        <tr>
+            <th>Title</th>
+            <th>Year</th>
+            <th>Director</th>
+        </tr>
+    </thead>
+    <tbody>
+    {{#each movies as |movie|}}
+        <tr>
+            <td>{{movie.title}}</td>
+            <td>{{movie.year}}</td>
+            <td>{{movie.director}}</td>
+        </tr>
+    {{/each}}
+    </tbody>
+</table>

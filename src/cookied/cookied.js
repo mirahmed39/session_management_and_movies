@@ -40,13 +40,9 @@ function manageSession(req, res, next) {
         const sesId = uuid.v4();
         sessionStore[sesId] = {};
         //req.hwSession = sessionStore[sesId];
-        //req.hwSession[sesId] = sessionStore[sesId];
-        req.hwSession = sessionStore[sesId];
         const stringCookie = 'sessionId=' + sesId + '; HttpOnly';
         res.append('Set-Cookie', stringCookie);
         req.hwSession['sessionId'] = sessionStore[sesId];
-        //console.log("session store:", sessionStore);
-        //res.append('Set-Cookie', 'HttpOnly');
         console.log('session generated:', sesId);
     }
     next();

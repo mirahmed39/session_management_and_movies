@@ -10,7 +10,7 @@ function parseCookies(req, res, next) {
     pairs from the value into a property on the req object called hwCookies
      */
     req.hwCookies = {};
-    if (req.hasOwnProperty('Cookies')) {
+    if (req.get('Cookie')) {
         let cookieData = req.get('Cookie').split(';');
         cookieData.forEach(function (ele) {
             nameValue = ele.trim().split('=');
@@ -21,15 +21,15 @@ function parseCookies(req, res, next) {
 }
 
 function manageSession(req, res, next) {
-    //const id = req.hwCookies['sessionId'];
-    if(req.hwCookies.hasOwnProperty('sessionId') && sessionStore.hasOwnProperty(req.hwCookies[sessionId])) {
+    if(req.hwCookies.hasOwnProperty('sessionId') && sessionStore.hasOwnProperty(req.hwCookies['sessionId'])) {
         /*
         the session id exists. then we have to fetch the data from the 'in-memory'
         data structure. then use the data
          */
         const sessionId = req.hwCookies['sessionId'];
         const data = sessionStore[sessionId];
-        req.hwSession[sessionId] = data;
+        req.hwSession = data;
+        req.hwSession['sessionId'] = sessionId;
         console.log('session already exists:', sessionId);
     } else {
         /*
@@ -39,10 +39,10 @@ function manageSession(req, res, next) {
          */
         const sesId = uuid.v4();
         sessionStore[sesId] = {};
-        //req.hwSession = sessionStore[sesId];
         const stringCookie = 'sessionId=' + sesId + '; HttpOnly';
         res.append('Set-Cookie', stringCookie);
-        req.hwSession['sessionId'] = sessionStore[sesId];
+        req.hwSession = sessionStore[sesId];
+        req.hwSession['sessionId'] = sesId;
         console.log('session generated:', sesId);
     }
     next();

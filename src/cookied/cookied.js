@@ -13,7 +13,7 @@ function parseCookies(req, res, next) {
     if (req.get('Cookie')) {
         let cookieData = req.get('Cookie').split(';');
         cookieData.forEach(function (ele) {
-            nameValue = ele.trim().split('=');
+            const nameValue = ele.trim().split('=');
             req.hwCookies[nameValue[0]] = nameValue[1];
         });
     }
@@ -27,8 +27,7 @@ function manageSession(req, res, next) {
         data structure. then use the data
          */
         const sessionId = req.hwCookies['sessionId'];
-        const data = sessionStore[sessionId];
-        req.hwSession = data;
+        req.hwSession = sessionStore[sessionId];
         req.hwSession['sessionId'] = sessionId;
         console.log('session already exists:', sessionId);
     } else {
